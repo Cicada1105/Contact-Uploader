@@ -24,10 +24,6 @@ app.controller("parserController",function($scope,$http){
 	$http({
 		method: "GET",
 		url: "load-table.php",
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		responseType: "json"
 		}).then(function(res){
 			$scope.contacts = res.data;
 			$storeData();
