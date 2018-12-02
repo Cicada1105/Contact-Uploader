@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact Parser</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="content/type" content="text/html;charset=UTF-8">
+	<meta name="author" content="Josh Colvin">
+	<meta name="Description" content="Parses provided user and superhero contact data">
+
+	<!--JAVASCRIPT LINKS-->
+		<!--AngularJS-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<!--Directive-->
+		<script src="contact-directive.js"></script>
+		<!--Controller-->
+		<script src="contact-controller.js"></script>
+
+	<!--CSS LINKS-->
+	<link rel="stylesheet" type="text/css" href="contact-parser.css" />
+</head>
+<body ng-app="parser" ng-controller="parserController">
+	<div id="user" class="leftView">
+		<h2>Current Contact</h2>
+		<table name="currContactTable">
+			<tr>
+				<th id="currContactName">
+					Name
+				</th>
+				<th id="currContactEmail">
+					Email
+				</th>
+				<th id="currContactURL">
+					ContactURL
+				</th>
+			</tr>
+			<tr>
+				<td id="nameSize">
+					{{currName}}
+				</td>
+				<td>	
+					{{currEmail}}
+				</td>
+				<td>
+					{{currURL}}
+				</td>
+			</tr>
+		</table>
+		<center>
+			<div id="userEdits">
+				<div id="userButtons">
+					<form name="contactButtons">
+						<previous-contact></previous-contact>&nbsp;&nbsp;
+						<next-contact></next-contact><br /><br />
+					</form>
+					<form name="editButtons">
+						<create-contact></create-contact>&nbsp;&nbsp;
+						<edit-contact></edit-contact>&nbsp;&nbsp;
+						<delete-contact></delete-contact>
+					</form>
+				</div>
+				<div id="userInput">
+					<form name="contactInput" ng-if="show">
+						<name-input></name-input><br /><br /><br />
+						<email-input></email-input><br /><br /><br />
+						<url-input></url-input><br /><br />
+						<span zip></span><br /><br />
+						<span city></span><br /><br />
+						<span state></span><br /><br />
+						<span ng-if="update">
+							<update-contact></update-contact>
+						</span>
+						<span ng-if="create">
+							<add-contact></add-contact>
+						</span>
+					</form>
+				</div>	
+			</div>
+		</center>
+	</div>	
+	
+	<!--For holding the "final" contacts-->
+	<div class="rightView">
+		<h2>Contacts - <span style="font-size:0.65em">Click on headers to change order</span></h2>
+		<form name="contactSearch">
+			<contact-search></contact-search>
+			<upload-contacts></upload-contacts>
+		</form>
+		<table name="contactsTable">
+			<tr>
+				<th ng-click="changeFilter('Name')">
+					Name
+				</th>
+				<th ng-click="changeFilter('Email')">
+					Email
+				</th>
+				<th ng-click="changeFilter('ContactURL')">
+					ContactURL
+				</th>
+			</tr>
+			<tr ng-repeat="x in contacts| filter:contactInput | orderBy: userChoice">
+				<td>
+					{{x.Name}}
+				</td>
+				<td>
+					{{x.Email}}
+				</td>
+				<td>
+					{{x.ContactURL}}
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
