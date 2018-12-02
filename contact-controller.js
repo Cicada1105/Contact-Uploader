@@ -21,7 +21,7 @@ app.controller("parserController",function($scope,$http){
 	$stateChange = false;
 	
 	//Storing Contacts when page is loading
-	$http.get("contacts.json").then(function(res){
+	$http.get("load-table.php").then(function(res){
 		$scope.contacts = res.data;
 		$storeData();
 		$logContacts();
@@ -275,12 +275,13 @@ app.controller("parserController",function($scope,$http){
 	};
 	//Saving files to server
 	$scope.saveContacts = function() {
+		$contacttJSON = angular.toJson($scope.contacts);
 		$http({
 			method:"POST",
 			url:"save-table.php",
-			data:"contacts=" + $scope.contacts,
+			data:{contacts: $contacttJSON},
 			headers: {
-				"Content-Type":"text/html"
+				'Content-Type': 'application/x-www-form-urlencoded'
 			}
 		})
 	}
