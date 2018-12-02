@@ -23,7 +23,7 @@ app.controller("parserController",function($scope,$http){
 	//Storing Contacts when page is loading
 	$http({
 		method: "GET",
-		url: "load-table.php",
+		url: window.location.href + "load-table.php",
 		}).then(function(res){
 			$scope.contacts = res.data;
 			$storeData();
