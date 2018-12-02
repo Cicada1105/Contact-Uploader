@@ -22,7 +22,7 @@ app.controller("parserController",function($scope,$http){
 	//Storing Contacts when page is loading
 	$http({
 		method: "GET",
-		url: "load-table.php"
+		url: "https://contacts-uploader.azurewebsites.net/load-table.php"
 		}).then(function(res){
 			$scope.contacts = res.data;
 			$storeData();
@@ -280,7 +280,7 @@ app.controller("parserController",function($scope,$http){
 		$contacttJSON = angular.toJson($scope.contacts);
 		$http({
 			method:"POST",
-			url:"save-table.php",
+			url:"https://contacts-uploader.azurewebsites.net/save-table.php",
 			data:{contacts: $contacttJSON},
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
