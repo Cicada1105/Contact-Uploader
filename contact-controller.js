@@ -21,13 +21,20 @@ app.controller("parserController",function($scope,$http){
 	$stateChange = false;
 	
 	//Storing Contacts when page is loading
-	$http.get("load-table.php").then(function(res){
-		$scope.contacts = res.data;
-		$storeData();
-		$logContacts();
-		$scope.currName = $scope.contacts[$currContactIndex].Name;
-		$scope.currEmail = $scope.contacts[$currContactIndex].Email;
-		$scope.currURL = $scope.contacts[$currContactIndex].ContactURL;
+	$http({
+		method: "GET",
+		url: "load-table.php",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		responseType: "json"
+		}).then(function(res){
+			$scope.contacts = res.data;
+			$storeData();
+			$logContacts();
+			$scope.currName = $scope.contacts[$currContactIndex].Name;
+			$scope.currEmail = $scope.contacts[$currContactIndex].Email;
+			$scope.currURL = $scope.contacts[$currContactIndex].ContactURL;
 	});
 	
 	$storeData = function() {
